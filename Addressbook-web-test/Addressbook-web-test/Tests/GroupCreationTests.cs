@@ -16,18 +16,24 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            InitNewGropuCreation();
             GroupData group = new GroupData("qw");
             group.Header = "qa";
             group.Footer = "qe";
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            ReturnToGroupsPage();
-            LogOut();
+
+            app.groups.Create(group);
+            app.logout.LogOut();
         }
 
+
+        [Test]
+        public void EmptyGroupCreationTest()
+        {
+            GroupData group = new GroupData("");
+            group.Header = "";
+            group.Footer = "";
+
+            app.groups.Create(group);
+            app.logout.LogOut();
+        }
     }
 }

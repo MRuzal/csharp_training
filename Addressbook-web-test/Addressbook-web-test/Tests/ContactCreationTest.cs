@@ -12,20 +12,18 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : TestBase
     {
+        
 
         [Test]
         public void ContactCreationTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret")); ;
-            GoToContactCreationPage();
-            ContactData Contact = new ContactData();
-            Contact.Firstname = "Ruzal";
-            Contact.Lastname = "Mukhamadiev";
-            FillTheContactCreationForm(Contact);
-            SubmitContactCreation();
-            GoToHomePage();
-            LogOut();
+            ContactData contact = new ContactData();
+     
+            contact.Firstname = "Ruzal";
+            contact.Lastname = "Mukhamadiev";
+            app.Contacts.CreateContact(contact);
+
+            app.logout.LogOut();
         }
 
     }
