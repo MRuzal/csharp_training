@@ -18,6 +18,26 @@ namespace WebAddressbookTests
 
         }
 
+        public ContactHelper Remove(int p)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(p);
+            DeleteContact();
+
+            return this;
+
+        }
+        public ContactHelper Modify(int p, ContactData newInfo)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(p);
+            EditContact();
+            FillTheContactCreationForm(newInfo);
+            SubmitContactModification();
+            
+            return this;
+        }
+
 
         public ContactHelper CreateContact(ContactData Contact)
 
@@ -34,11 +54,9 @@ namespace WebAddressbookTests
          driver.FindElement(By.Name("firstname")).Click();
         driver.FindElement(By.Name("firstname")).Clear();
         driver.FindElement(By.Name("firstname")).SendKeys(Contact.Firstname);
-        driver.FindElement(By.Name("theform")).Click();
         driver.FindElement(By.Name("lastname")).Click();
         driver.FindElement(By.Name("lastname")).Clear();
         driver.FindElement(By.Name("lastname")).SendKeys(Contact.Lastname);
-        driver.FindElement(By.Name("theform")).Click();
             return this;
     }
 
@@ -48,6 +66,33 @@ namespace WebAddressbookTests
             return this;
     }
 
+      
 
-}
+        public ContactHelper SelectContact(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper DeleteContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper EditContact()
+        {
+            driver.FindElement(By.XPath("//img[@title='Edit']")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+    }
+
+
 }
