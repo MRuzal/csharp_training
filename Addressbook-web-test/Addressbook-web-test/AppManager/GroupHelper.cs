@@ -3,10 +3,12 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
 
+
 namespace WebAddressbookTests
 {
     public class GroupHelper : HelperBase
     {
+        
         
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
@@ -16,7 +18,7 @@ namespace WebAddressbookTests
         public GroupHelper Create(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
-            InitNewGropuCreation();
+            InitNewGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
             ReturnToGroupsPage();
@@ -26,6 +28,7 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int p, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
+            GroupPresentCheck();
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
@@ -34,17 +37,19 @@ namespace WebAddressbookTests
             return this;
         }
 
-        
 
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupsPage();
+            GroupPresentCheck();
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
-
         }
+
+        
+
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
@@ -59,9 +64,13 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
-            return this;
+            
+          driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+          return this;
+            
         }
+
+        
 
         public GroupHelper RemoveGroup()
         {
@@ -69,7 +78,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper InitNewGropuCreation()
+        public GroupHelper InitNewGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
             driver.FindElement(By.XPath("//form[@action='/addressbook/group.php']")).Click();
@@ -78,15 +87,9 @@ namespace WebAddressbookTests
 
         public GroupHelper FillGroupForm(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
 
@@ -100,6 +103,22 @@ namespace WebAddressbookTests
         public GroupHelper InitGroupModification()
         {
             driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+
+
+        public GroupHelper GroupPresentCheck()
+        {
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+            }
+            else
+            {
+                GroupData group = new GroupData("вппв");
+                group.Header = "ролл";
+                group.Footer = "";
+                manager.groups.Create(group);
+            }
             return this;
         }
 

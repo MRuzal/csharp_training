@@ -20,6 +20,50 @@ namespace WebAddressbookTests
         }
 
 
+        public void Type(By locator, string text)
+        {
+            if (text != null)
+            {
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
+            }
 
+        }
+
+        public void Typee(By locatorr, string textt)
+        {
+            if (textt != null)
+            {
+                driver.FindElement(locatorr).Clear();
+                driver.FindElement(locatorr).SendKeys(textt);
+            }
+
+        }
+
+        public bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        public bool IsElementNotPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return false;
+            }
+            catch (NoSuchElementException)
+            {
+                return true;
+            }
+        }
     }
 }

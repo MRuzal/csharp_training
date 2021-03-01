@@ -21,6 +21,7 @@ namespace WebAddressbookTests
         public ContactHelper Remove(int p)
         {
             manager.Navigator.GoToHomePage();
+            ContactPresentCheck();
             SelectContact(p);
             DeleteContact();
 
@@ -30,6 +31,7 @@ namespace WebAddressbookTests
         public ContactHelper Modify(int p, ContactData newInfo)
         {
             manager.Navigator.GoToHomePage();
+            ContactPresentCheck();
             SelectContact(p);
             EditContact();
             FillTheContactCreationForm(newInfo);
@@ -51,16 +53,13 @@ namespace WebAddressbookTests
 
         public ContactHelper FillTheContactCreationForm(ContactData Contact)
         {
-         driver.FindElement(By.Name("firstname")).Click();
-        driver.FindElement(By.Name("firstname")).Clear();
-        driver.FindElement(By.Name("firstname")).SendKeys(Contact.Firstname);
-        driver.FindElement(By.Name("lastname")).Click();
-        driver.FindElement(By.Name("lastname")).Clear();
-        driver.FindElement(By.Name("lastname")).SendKeys(Contact.Lastname);
+            Typee(By.Name("firstname"), Contact.Firstname);
+            Typee(By.Name("lastname"), Contact.Lastname);
             return this;
-    }
+        }
 
-    public ContactHelper SubmitContactCreation()
+
+        public ContactHelper SubmitContactCreation()
     {
         driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
             return this;
@@ -90,6 +89,25 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper ContactPresentCheck()
+        {
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+            }
+            else
+            {
+                ContactData newInfo = new ContactData();
+
+                newInfo.Firstname = "sdfsdf";
+                newInfo.Lastname = "fdfd";
+
+                manager.Contacts.CreateContact(newInfo);
+                manager.Navigator.GoToHomePage();
+
+            }
             return this;
         }
     }
