@@ -28,7 +28,6 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int p, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-            GroupPresentCheck();
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
@@ -41,7 +40,6 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupsPage();
-            GroupPresentCheck();
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -109,6 +107,8 @@ namespace WebAddressbookTests
 
         public GroupHelper GroupPresentCheck()
         {
+            manager.Navigator.GoToGroupsPage();
+
             if (IsElementPresent(By.Name("selected[]")))
             {
             }

@@ -11,13 +11,19 @@ namespace WebAddressbookTests
 {
     [TestFixture]
     public class GroupRemovalTests : AuthTestBase
-    { 
+    {
+
+        [SetUp]
+        public void VerifyGroupPresent()
+        {
+            app.groups.GroupPresentCheck();
+        }
 
         [Test]
         public void GroupRemovalTest()
         {
             app.groups.Remove(1);
-            app.logout.LogOut();
+            
         }
 
      }

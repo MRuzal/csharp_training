@@ -13,6 +13,15 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactModificationsTests : AuthTestBase
     {
+      
+
+        [SetUp]
+        public void VerifyContactPresent()
+        {
+            app.Contacts.ContactPresentCheck();
+        }
+
+
         [Test]
         public void ContactModificationTests()
         {

@@ -13,6 +13,12 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupModificationsTests : AuthTestBase
     {
+        [SetUp]
+        public void VerifyGroupPresent()
+        {
+            app.groups.GroupPresentCheck();
+        }
+
         [Test]
         public void GroupModificationTest()
         {

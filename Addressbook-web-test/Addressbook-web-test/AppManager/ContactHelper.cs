@@ -21,7 +21,6 @@ namespace WebAddressbookTests
         public ContactHelper Remove(int p)
         {
             manager.Navigator.GoToHomePage();
-            ContactPresentCheck();
             SelectContact(p);
             DeleteContact();
 
@@ -30,8 +29,6 @@ namespace WebAddressbookTests
         }
         public ContactHelper Modify(int p, ContactData newInfo)
         {
-            manager.Navigator.GoToHomePage();
-            ContactPresentCheck();
             SelectContact(p);
             EditContact();
             FillTheContactCreationForm(newInfo);
@@ -99,11 +96,10 @@ namespace WebAddressbookTests
             }
             else
             {
-                ContactData newInfo = new ContactData();
 
+                ContactData newInfo = new ContactData();
                 newInfo.Firstname = "sdfsdf";
                 newInfo.Lastname = "fdfd";
-
                 manager.Contacts.CreateContact(newInfo);
                 manager.Navigator.GoToHomePage();
 

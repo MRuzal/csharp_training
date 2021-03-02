@@ -13,6 +13,11 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactRemovalTests : AuthTestBase
     {
+        [SetUp]
+        public void VerifyContactPresent()
+        {
+            app.Contacts.ContactPresentCheck();
+        }
 
         [Test]
         public void GontactRemovalTest()
