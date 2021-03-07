@@ -25,8 +25,14 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("AAA");
             newData.Header = "Namee";
             newData.Footer = "Футер";
+
+            List<GroupData> oldGroups = app.groups.GetGroupList();
+
             app.groups.Modify(1, newData);
-            
+
+            List<GroupData> newGroups = app.groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count, newGroups.Count);
+
         }
     }
 }

@@ -47,6 +47,19 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            
+            manager.Navigator.GoToHomePage();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.Text, element.Text));
+            }
+            return contacts;
+        }
 
         public ContactHelper FillTheContactCreationForm(ContactData Contact)
         {
@@ -97,7 +110,7 @@ namespace WebAddressbookTests
             else
             {
 
-                ContactData newInfo = new ContactData();
+                ContactData newInfo = new ContactData("Ruzal", "Muham");
                 newInfo.Firstname = "sdfsdf";
                 newInfo.Lastname = "fdfd";
                 manager.Contacts.CreateContact(newInfo);
