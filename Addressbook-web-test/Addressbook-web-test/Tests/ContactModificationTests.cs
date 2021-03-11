@@ -32,10 +32,11 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts.Modify(1, newInfo);
+            app.Contacts.Modify(0, newInfo);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
             Assert.AreEqual(oldContacts.Count, newContacts.Count);
+            
 
         }
     }

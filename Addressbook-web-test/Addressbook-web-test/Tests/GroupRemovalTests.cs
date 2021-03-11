@@ -25,10 +25,14 @@ namespace WebAddressbookTests
         {
             List<GroupData> oldGroups = app.groups.GetGroupList();
 
-            app.groups.Remove(1);
+            app.groups.Remove(0);
 
             List<GroupData> newGroups = app.groups.GetGroupList();
             Assert.AreEqual(oldGroups.Count - 1, newGroups.Count);
+
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, newGroups);
+
         }
 
      }
