@@ -28,29 +28,28 @@ namespace WebAddressbookTests
                 return true;
             }
             return firstname == other.firstname;
+        }
 
+        public int CompareTo(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return (Firstname + " " + Lastname).CompareTo(other.Firstname + " " + other.Lastname);
         }
 
 
-
-        public int GetHashCode()
+        public override int GetHashCode()
         {
           return firstname.GetHashCode();
         }
 
-        public int GetHashCode1()
-        {
-          return lastname.GetHashCode();
-        }
 
-        public string ToString()
+        public override string ToString()
         {
-          return firstname;
-        }
-
-        public string ToString1()
-        {
-          return lastname;
+            return "firstname = " + Firstname
+                  + "\nlastname = " + Lastname;
         }
        
 
