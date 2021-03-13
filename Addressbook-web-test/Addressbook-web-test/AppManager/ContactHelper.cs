@@ -54,21 +54,15 @@ namespace WebAddressbookTests
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
             foreach (IWebElement element in elements)
             {
-                ICollection<IWebElement> cells = element.FindElements(By.TagName("td"));
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
                 int i = 0;
                 string firstname = "";
                 string lastname = "";
                 foreach (IWebElement cell in cells)
                 {
                     i++;
-                    if (i == 3)
-                    {
-                        lastname = cell.Text;
-                    }
-                    else if (i == 2)
-                    {
-                        firstname = cell.Text;
-                    }
+                    lastname = cells[2].Text;
+                    firstname = cells[1].Text;
                 }
                 contacts.Add(new ContactData(lastname, firstname));
             }

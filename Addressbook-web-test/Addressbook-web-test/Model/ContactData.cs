@@ -32,11 +32,19 @@ namespace WebAddressbookTests
 
         public int CompareTo(ContactData other)
         {
+
             if (Object.ReferenceEquals(other, null))
             {
                 return 1;
             }
-            return (Firstname + " " + Lastname).CompareTo(other.Firstname + " " + other.Lastname);
+            lastname.CompareTo(other.Lastname);
+
+            if (other.Lastname == lastname)
+            {
+                firstname.CompareTo(other.Firstname);
+            }
+            return lastname.CompareTo(other.Lastname) + firstname.CompareTo(other.Firstname);
+
         }
 
 
