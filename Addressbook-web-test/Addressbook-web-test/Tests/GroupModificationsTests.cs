@@ -27,8 +27,11 @@ namespace WebAddressbookTests
             newData.Footer = "Футер";
 
             List<GroupData> oldGroups = app.groups.GetGroupList();
+            GroupData oldData = oldGroups[0];
 
             app.groups.Modify(0, newData);
+
+            Assert.AreEqual(oldGroups.Count, app.groups.GetGroupCount());
 
             List<GroupData> newGroups = app.groups.GetGroupList();
             Assert.AreEqual(oldGroups.Count, newGroups.Count);
@@ -38,6 +41,13 @@ namespace WebAddressbookTests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
+            foreach (GroupData group in newGroups)
+            {
+                if(group.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name, group.Name);
+                }
+            }
         }
     }
 }
