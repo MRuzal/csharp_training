@@ -32,19 +32,24 @@ namespace WebAddressbookTests
 
         public int CompareTo(ContactData other)
         {
-            Firstname.CompareTo(other.Lastname);
 
             if (Object.ReferenceEquals(other, null))
             {
                 return 1;
             }
 
-            else 
+            int result = Lastname.CompareTo(other.Lastname);
             {
-                Firstname.CompareTo(other.Firstname);
-            }
-            return 0;
-        }
+                if (result != 0)
+                {
+                    return result;
+                }
+                else
+                {
+                    return Firstname.CompareTo(other.Firstname);
+                }
+
+        }   }
 
 
         public override int GetHashCode()
